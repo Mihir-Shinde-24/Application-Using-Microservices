@@ -1,0 +1,5 @@
+package com.grt.entities;
+
+public class Rating {
+
+}
