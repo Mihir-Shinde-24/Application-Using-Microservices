@@ -1,0 +1,47 @@
+package com.grt.services;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.grt.entities.User;
+import com.grt.repositories.UserRepo;
+
+@Service
+public class UserService implements Services {
+
+	@Autowired
+	private UserRepo repo;
+	
+	@Override
+	public List<User> getUsers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User getUser(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User addUser(User newUser) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User updateUser(User newUser) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User deleteUser(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

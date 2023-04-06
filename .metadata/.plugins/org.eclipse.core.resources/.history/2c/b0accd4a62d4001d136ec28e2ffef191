@@ -1,0 +1,5 @@
+package com.grt.payload;
+
+public class ApiResponse {
+
+}

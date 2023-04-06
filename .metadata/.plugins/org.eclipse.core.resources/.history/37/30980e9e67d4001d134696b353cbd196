@@ -1,0 +1,27 @@
+package com.grt.controllers;
+
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.grt.entities.User;
+
+@RestController
+@RequestMapping("/users")
+public class UserController {
+
+	// 1. Get ALL
+	public ResponseEntity<User> getUser(int id);
+
+	// 3. Add
+	public ResponseEntity<User> addUser(User newUser);
+
+	// 4. Update
+	public ResponseEntity<User> updateUser(User newUser);
+
+	// 5. Delete
+	public ResponseEntity<String> deleteUser(int id);
+
+}

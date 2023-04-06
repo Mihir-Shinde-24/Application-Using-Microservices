@@ -1,0 +1,14 @@
+package com.grt.services;
+
+import com.grt.entities.User;
+
+
+public interface Services {
+
+	//1. Get ALL
+	List<User> getUsers();
+	//2. Get Single
+	//3. Add 
+	//4. Update
+	//5. Delete
+}

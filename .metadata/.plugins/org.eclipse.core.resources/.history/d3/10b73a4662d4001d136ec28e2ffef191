@@ -1,0 +1,13 @@
+package com.grt.exceptions;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+@RestControllerAdvice
+public class GlobalExceptionhandler {
+
+	public ResponseEntity<ApiResponse> handleResourceNotFoundException()
+	{
+		
+	}
+}
