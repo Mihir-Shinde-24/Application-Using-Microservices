@@ -1,7 +1,5 @@
 package com.grt.entities;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
