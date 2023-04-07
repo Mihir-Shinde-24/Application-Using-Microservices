@@ -58,8 +58,8 @@ public class RatingController {
 	{
 		ApiResponse response = ApiResponse.builder()
 											.message(service.deleteRating(r_id))
-											.success(true)
 											.status(HttpStatus.OK)
+											.success(true)
 											.build();
 		
 		return ResponseEntity.status(HttpStatus.OK).body(response);
