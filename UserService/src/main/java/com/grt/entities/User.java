@@ -1,5 +1,6 @@
 package com.grt.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -13,6 +14,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name="USER")
@@ -21,6 +23,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
 public class User {
 
 	@Id
@@ -37,5 +40,5 @@ public class User {
 	private String u_email;
 	
 	@Transient
-	private List<Rating> u_ratings;
+	private List<Rating> u_ratings = new ArrayList<>();
 }

@@ -1,5 +1,6 @@
 package com.grt.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -33,6 +34,9 @@ public class UserService implements Services {
 		
 		String randomUuid = UUID.randomUUID().toString();
 		newUser.setU_id(randomUuid);
+		newUser.setU_ratings(new ArrayList<>());
+		System.out.println(newUser);
+		
 		return repo.save(newUser);
 	}
 
