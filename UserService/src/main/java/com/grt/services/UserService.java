@@ -1,13 +1,21 @@
 package com.grt.services;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import com.grt.entities.Hotel;
+import com.grt.entities.Rating;
 import com.grt.entities.User;
 import com.grt.exceptions.ResourceNotFoundException;
 import com.grt.repositories.UserRepo;
@@ -17,6 +25,11 @@ public class UserService implements Services {
 
 	@Autowired
 	private UserRepo repo;
+	
+	@Autowired
+	private RestTemplate restTemplate;
+	
+	Logger logger = LoggerFactory.getLogger(UserService.class);
 
 	@Override
 	public List<User> getUsers() {
@@ -25,8 +38,27 @@ public class UserService implements Services {
 
 	@Override
 	public User getUser(String id) {
-		return repo.findById(id)
+		User user = repo.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("User with given ID is Not Found on Server."));
+		
+		Rating[] ratings = restTemplate.getForObject("http://RATING-SERVICE/ratings/users/"+user.getU_id(), Rating[].class);
+		
+		List<Rating> ratingsList =  Arrays.stream(ratings).toList().stream().map((rating)->{
+			
+			Hotel hotel = restTemplate.getForObject("http://HOTEL-SERVICE/hotels/"+rating.getHotelId(), Hotel.class);
+			rating.setHotel(hotel);
+			return rating;
+		}).collect(Collectors.toList());
+		
+		
+		logger.info("{}",ratingsList);
+		
+			
+		
+		user.setU_ratings(ratingsList);
+		
+		return user;
+		
 	}
 
 	@Override
