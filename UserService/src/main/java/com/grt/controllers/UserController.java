@@ -21,6 +21,7 @@ import com.grt.entities.User;
 import com.grt.services.Services;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.github.resilience4j.retry.annotation.Retry;
 
 
@@ -46,7 +47,8 @@ public class UserController {
 	// 2. Get Single
 	@GetMapping("/{id}")
 //	@CircuitBreaker(name = "getUserBreaker", fallbackMethod = "getUserFallback")
-	@Retry(name = "getUserRetry", fallbackMethod = "getUserFallback")
+//	@Retry(name = "getUserRetry", fallbackMethod = "getUserFallback")
+//	@RateLimiter(name = "getUserRateLimiter", fallbackMethod = "getUserFallback")
 	public ResponseEntity<User> getUser(@PathVariable("id") String id)
 	{
 		logger.info("Retry Attempt no: {}", retryCount++);

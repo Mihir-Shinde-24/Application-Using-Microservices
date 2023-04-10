@@ -65,8 +65,17 @@ resilience4j:
       getUserRetry:
         max-attempts: 3
         wait-duration: 2s
-    
         
+# RateLimiter Config
+
+  ratelimiter:
+    instances:
+      getUserRateLimiter:
+        timeout-duration: 10s
+        limit-refresh-period: 5s
+        limit-for-period: 1
+        
+              
 # ServiceRegistryClient Config #commented since we are importing
 #eureka:
 #  instance:
