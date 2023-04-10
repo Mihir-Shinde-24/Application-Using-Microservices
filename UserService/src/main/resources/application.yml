@@ -58,6 +58,13 @@ resilience4j:
         sliding-window-size: 10
         sliding-window-type: COUNT_BASED
         wait-duration-in-open-state: 6s
+        
+# RETRY Config
+  retry:
+    instances:
+      getUserRetry:
+        max-attempts: 3
+        wait-duration: 2s
     
         
 # ServiceRegistryClient Config #commented since we are importing

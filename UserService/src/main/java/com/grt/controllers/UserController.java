@@ -21,6 +21,7 @@ import com.grt.entities.User;
 import com.grt.services.Services;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 
 
 @RestController
@@ -29,6 +30,8 @@ public class UserController {
 	
 	@Autowired
 	Services service;
+	
+	int retryCount = 1;
 	
 	private Logger logger = LoggerFactory.getLogger(UserController.class);
 	
@@ -42,9 +45,12 @@ public class UserController {
 	
 	// 2. Get Single
 	@GetMapping("/{id}")
-	@CircuitBreaker(name = "getUserBreaker", fallbackMethod = "getUserFallback")
+//	@CircuitBreaker(name = "getUserBreaker", fallbackMethod = "getUserFallback")
+	@Retry(name = "getUserRetry", fallbackMethod = "getUserFallback")
 	public ResponseEntity<User> getUser(@PathVariable("id") String id)
 	{
+		logger.info("Retry Attempt no: {}", retryCount++);
+		
 		return ResponseEntity.status(HttpStatus.OK).body(service.getUser(id));
 	}
 	
