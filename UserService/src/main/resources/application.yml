@@ -24,6 +24,32 @@ spring:
   config:
     import: configserver:http://localhost:8085
     
+    
+    
+# Spring Security Config as a Client
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://dev-49865484.okta.com/oauth2/default 
+          
+      client:
+        registration:
+          my-internal-client:
+            provider: okta
+            authorization-grant-type: client_credentials
+            scope: internal
+            client-id: 0oa92xtcqiOR3vztX5d7
+            client-secret: xH6XCA-qrJCs4XEg6FKtIdzSu_nnLfegiQOgM7PP
+        provider:
+          okta:
+            issuer-uri: https://dev-49865484.okta.com/oauth2/default 
+            
+          
+       
+          
+ 
 
 # Actuator Config
 management:
@@ -74,6 +100,13 @@ resilience4j:
         timeout-duration: 10s
         limit-refresh-period: 5s
         limit-for-period: 1
+        
+        
+# Okta Config
+okta:
+  oauth2:
+    issuer: https://dev-49865484.okta.com/oauth2/default
+    audience: api://default
         
               
 # ServiceRegistryClient Config #commented since we are importing
