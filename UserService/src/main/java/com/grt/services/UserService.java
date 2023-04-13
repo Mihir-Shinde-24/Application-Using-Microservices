@@ -19,6 +19,7 @@ import com.grt.entities.Rating;
 import com.grt.entities.User;
 import com.grt.exceptions.ResourceNotFoundException;
 import com.grt.external.services.HotelService;
+import com.grt.external.services.RatingService;
 import com.grt.repositories.UserRepo;
 
 @Service
@@ -28,10 +29,12 @@ public class UserService implements Services {
 	private UserRepo repo;
 	
 	@Autowired
-	private RestTemplate restTemplate;
+	private RatingService ratingService;
 	
 	@Autowired
 	private HotelService hotelService;
+	
+	
 	
 	Logger logger = LoggerFactory.getLogger(UserService.class);
 
@@ -45,9 +48,9 @@ public class UserService implements Services {
 		User user = repo.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("User with given ID is Not Found on Server."));
 		
-		Rating[] ratings = restTemplate.getForObject("http://RATING-SERVICE/ratings/users/"+user.getU_id(), Rating[].class);
-		
-		List<Rating> ratingsList =  Arrays.stream(ratings).toList().stream().map((rating)->{
+//		Rating[] ratings = restTemplate.getForObject("http://RATING-SERVICE/ratings/users/"+user.getU_id(), Rating[].class);		
+		List<Rating> ratingsList =  ratingService.getRatingsById(user.getU_id())
+																	.stream().map((rating)->{
 			
 //			Hotel hotel = restTemplate.getForObject("http://HOTEL-SERVICE/hotels/"+rating.getHotelId(), Hotel.class);
 			Hotel hotel = hotelService.getHotel(rating.getHotelId());
@@ -57,8 +60,6 @@ public class UserService implements Services {
 		
 		
 		logger.info("{}",ratingsList);
-		
-			
 		
 		user.setU_ratings(ratingsList);
 		
