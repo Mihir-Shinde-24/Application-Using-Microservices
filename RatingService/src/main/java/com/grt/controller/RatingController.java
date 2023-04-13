@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +26,7 @@ public class RatingController {
 	Services service;
 	
 	// 1. Create Rating
+	@PreAuthorize("hasAuthority('Admin')")
 	@PostMapping
 	public ResponseEntity<Rating> addRating(@RequestBody Rating newRating)
 	{
@@ -39,6 +41,7 @@ public class RatingController {
 	}
 
 	// 3. Get All Rating by user id
+	@PreAuthorize("hasAuthority('SCOPE_internal') || hasAuthority('Admin')" )
 	@GetMapping("/users/{u_id}")
 	public ResponseEntity<List<Rating>>  getRatingsByUserId(@PathVariable("u_id") String u_id)
 	{

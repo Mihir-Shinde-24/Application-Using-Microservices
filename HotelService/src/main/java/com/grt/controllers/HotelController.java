@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +27,7 @@ public class HotelController {
 	Services service;
 	
 	// 1. Get All
+	@PreAuthorize("hasAuthority('SCOPE_internal') || hasAuthority('Admin') || hasAuthority('Normal')")
 	@GetMapping
 	public ResponseEntity<List<Hotel>> getHotels()
 	{
@@ -34,6 +36,7 @@ public class HotelController {
 	
 	
 	// 2. Get Single
+	@PreAuthorize("hasAuthority('SCOPE_internal')")
 	@GetMapping("/{id}")
 	public ResponseEntity<Hotel> getHotel(@PathVariable("id") String id)
 	{
@@ -41,6 +44,7 @@ public class HotelController {
 	}
 
 	// 3. Add
+	@PreAuthorize("hasAuthority('Admin')")
 	@PostMapping
 	public ResponseEntity<Hotel> addHotel(@RequestBody Hotel newHotel)
 	{
