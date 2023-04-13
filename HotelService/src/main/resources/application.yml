@@ -26,6 +26,12 @@ spring:
   profiles:
     active:
       - default
+      
+#Okta Config
+okta:
+  oauth2:
+    issuer: https://dev-49865484.okta.com/oauth2/default
+    audience: api://default
        
 # Service Registry Client Config
 #eureka:
